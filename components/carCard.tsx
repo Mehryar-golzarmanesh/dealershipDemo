@@ -28,7 +28,7 @@ const CarCard = ({
   brandSlug,
 }: Props) => {
   return (
-    <div className="flex flex-col w-90 bg-[#1b1e23] gap-1">
+    <div className="flex flex-col w-95 bg-[#1b1e23] gap-1">
       <div>
         <Image
           src={img[0]}
@@ -40,7 +40,9 @@ const CarCard = ({
       </div>
       <div className="flex flex-col gap-3 text-[#b9b5ac] p-5">
         <p className="text-xs text-[#d9b37e]">{make}</p>
-        <p className="text-xl text-white">{model}</p>
+        <Link href={`/cars/${slug}`}>
+          <p className="text-xl text-white">{model}</p>
+        </Link>
         <div className="flex gap-5 text-xs">
           {year} <SmallSlash /> {mileage} کیلومتر <SmallSlash /> {fuel_type}
         </div>
@@ -48,7 +50,7 @@ const CarCard = ({
         <div className="flex justify-between">
           <p>{price} میلیون تومان</p>
           <Link
-            href={`/cars/${brandSlug}/${slug}`}
+            href={`/cars/${slug}`}
             className="flex gap-1 text-xs items-center text-[#d9b37e]"
           >
             جزئیات <MoveLeft className="size-3" />

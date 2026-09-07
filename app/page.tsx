@@ -1,3 +1,4 @@
+import { CarGallery } from "@/components/carGallery";
 import HeroSection from "@/components/hero";
 import HeroBottom from "@/components/heroBottom";
 import HeroMiddle from "@/components/heroMiddle";

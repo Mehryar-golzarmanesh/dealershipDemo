@@ -1,6 +1,13 @@
 // db/seed.ts
 import { db } from "./index";
-import { brands, cars, type NewBrand, type NewCar } from "./schema";
+import {
+  brands,
+  cars,
+  inquiries,
+  type NewBrand,
+  type NewCar,
+  type NewInquiry,
+} from "./schema";
 
 // ============================================
 // 1. SEED BRANDS
@@ -8,102 +15,77 @@ import { brands, cars, type NewBrand, type NewCar } from "./schema";
 
 const brandData: NewBrand[] = [
   {
-    name: "ایران خودرو",
-    slug: "iran-khodro",
-    country: "ایران",
-    logo: "/brands/iran-khodro.png",
-    website: "https://www.ikco.ir",
-    description: "بزرگترین خودروساز ایران با بیش از ۵۰ سال سابقه",
-    isActive: true,
-  },
-  {
-    name: "سایپا",
-    slug: "saipa",
-    country: "ایران",
-    logo: "/brands/saipa.png",
-    website: "https://www.saipa.com",
-    description: "دومین خودروساز بزرگ ایران با تولید خودروهای اقتصادی",
-    isActive: true,
-  },
-  {
-    name: "تویوتا",
-    slug: "toyota",
-    country: "ژاپن",
-    logo: "/brands/toyota.png",
-    website: "https://www.toyota.com",
-    description: "بزرگترین خودروساز جهان با کیفیت و دوام بی‌نظیر",
-    isActive: true,
-  },
-  {
     name: "بی‌ام‌و",
     slug: "bmw",
     country: "آلمان",
     logo: "/brands/bmw.png",
     website: "https://www.bmw.com",
-    description: "خودروساز لوکس آلمانی با تمرکز بر عملکرد و طراحی",
+    description:
+      "خودروساز لوکس آلمانی با تمرکز بر عملکرد، طراحی و فناوری پیشرفته",
     isActive: true,
   },
   {
-    name: "مرسدس بنز",
-    slug: "mercedes-benz",
-    country: "آلمان",
-    logo: "/brands/mercedes.png",
-    website: "https://www.mercedes-benz.com",
-    description: "نماد لوکس و کیفیت در صنعت خودروسازی جهان",
-    isActive: true,
-  },
-  {
-    name: "پورشه",
-    slug: "porsche",
-    country: "آلمان",
-    logo: "/brands/porsche.png",
-    website: "https://www.porsche.com",
-    description: "خودروساز اسپرت آلمانی با طراحی‌های منحصر‌به‌فرد",
-    isActive: true,
-  },
-  {
-    name: "هیوندای",
-    slug: "hyundai",
-    country: "کره جنوبی",
-    logo: "/brands/hyundai.png",
-    website: "https://www.hyundai.com",
-    description: "خودروساز پیشرو کرهای با طراحی‌های مدرن",
-    isActive: true,
-  },
-  {
-    name: "کیا",
-    slug: "kia",
-    country: "کره جنوبی",
-    logo: "/brands/kia.png",
-    website: "https://www.kia.com",
-    description: "خودروساز کرهای با طراحی‌های جسورانه و اقتصادی",
-    isActive: true,
-  },
-  {
-    name: "لکسوس",
-    slug: "lexus",
+    name: "هوندا",
+    slug: "honda",
     country: "ژاپن",
-    logo: "/brands/lexus.png",
-    website: "https://www.lexus.com",
-    description: "برند لوکس تویوتا با کیفیت و خدمات استثنایی",
+    logo: "/brands/honda.png",
+    website: "https://www.honda.com",
+    description: "خودروساز ژاپنی با موتورهای قابل اعتماد و طراحی‌های کاربردی",
     isActive: true,
   },
   {
-    name: "تسلا",
-    slug: "tesla",
-    country: "آمریکا",
-    logo: "/brands/tesla.png",
-    website: "https://www.tesla.com",
-    description: "پیشرو در خودروهای برقی و فناوری‌های آینده",
+    name: "لمبورگینی",
+    slug: "lamborghini",
+    country: "ایتالیا",
+    logo: "/brands/lamborghini.png",
+    website: "https://www.lamborghini.com",
+    description:
+      "نماد خودروهای اسپرت ایتالیایی با طراحی خشن و موتورهای قدرتمند",
+    isActive: true,
+  },
+  {
+    name: "مزدا",
+    slug: "mazda",
+    country: "ژاپن",
+    logo: "/brands/mazda.png",
+    website: "https://www.mazda.com",
+    description: "خودروساز ژاپنی با طراحی‌های زیبا و فناوری Skyactiv",
+    isActive: true,
+  },
+  {
+    name: "نیسان",
+    slug: "nissan",
+    country: "ژاپن",
+    logo: "/brands/nissan.png",
+    website: "https://www.nissan.com",
+    description: "خودروساز ژاپنی با تنوع بالا و فناوری الکتریکی پیشرو",
+    isActive: true,
+  },
+  {
+    name: "پژو",
+    slug: "peugeot",
+    country: "فرانسه",
+    logo: "/brands/peugeot.png",
+    website: "https://www.peugeot.com",
+    description: "خودروساز فرانسوی با طراحی‌های جذاب و موتورهای کم‌مصرف",
+    isActive: true,
+  },
+  {
+    name: "فولکس‌واگن",
+    slug: "volkswagen",
+    country: "آلمان",
+    logo: "/brands/volkswagen.png",
+    website: "https://www.vw.com",
+    description: "خودروساز آلمانی با تولید خودروهای باکیفیت و محبوب جهانی",
     isActive: true,
   },
 ];
 
 // ============================================
-// 2. SEED CARS (with explicit model slugs)
+// 2. SEED CARS (Related to Brands)
 // ============================================
 
-// Helper to generate a clean URL slug from brand slug, model slug, and year
+// Helper to generate a clean URL slug
 function generateSlug(
   brandSlug: string,
   modelSlug: string,
@@ -112,289 +94,328 @@ function generateSlug(
   return `${brandSlug}-${modelSlug}-${year}`;
 }
 
-// Helper to get brand ID by name
-async function getBrandId(name: string): Promise<number> {
+// Helper to get brand ID by slug
+async function getBrandIdBySlug(slug: string): Promise<number> {
   const result = await db.query.brands.findFirst({
-    where: (brands, { eq }) => eq(brands.name, name),
+    where: (brands, { eq }) => eq(brands.slug, slug),
   });
-  if (!result) throw new Error(`Brand "${name}" not found`);
+  if (!result) throw new Error(`Brand with slug "${slug}" not found`);
   return result.id;
 }
 
-// Car data with explicit model slugs (for Persian names)
+// Car data
 const carSeedData = [
-  // ===== IRANIAN CARS =====
+  // ===== BMW =====
   {
-    brandName: "ایران خودرو",
-    model: "دنا پلاس",
-    modelSlug: "dena-plus",
-    year: 1402,
-    price: 780000000,
-    mileage: 0,
-    transmission: "دنده‌ای",
-    fuelType: "بنزین",
-    color: "سفید",
-    description:
-      "دنا پلاس، کامل‌ترین گزینه برای خانواده‌های ایرانی. با موتور قدرتمند EF7، امکانات کامل ایمنی و رفاهی، و طراحی مدرن. انتخابی ایده‌آل برای سفرهای شهری و جاده‌ای.",
-    images: [
-      "/cars/dena-plus/1.jpg",
-      "/cars/dena-plus/2.jpg",
-      "/cars/dena-plus/3.jpg",
-    ],
-    isFeatured: true,
-    vin: "IKDPLUS1402A001",
-  },
-  {
-    brandName: "ایران خودرو",
-    model: "ریرا",
-    modelSlug: "rira",
-    year: 1401,
-    price: 620000000,
-    mileage: 12000,
-    transmission: "دنده‌ای",
-    fuelType: "بنزین",
-    color: "مشکی",
-    description:
-      "ریرا، خودروی اسپرت و جوان‌پسند ایران خودرو. با طراحی کوپه‌گونه، موتور ۱.۷ لیتری و مصرف بهینه سوخت. مناسب برای رانندگی‌های شهری با ظاهری خاص و جذاب.",
-    images: ["/cars/rira/1.jpg", "/cars/rira/2.jpg"],
-    isFeatured: false,
-    vin: "IKDRIRA1401B002",
-  },
-  {
-    brandName: "سایپا",
-    model: "شاهین",
-    modelSlug: "shahin",
-    year: 1402,
-    price: 550000000,
-    mileage: 0,
-    transmission: "دنده‌ای",
-    fuelType: "بنزین",
-    color: "نقره‌ای",
-    description:
-      "شاهین، پرچمدار جدید سایپا. با طراحی مدرن و اسپرت، موتور توربو، و امکانات پیشرفته مانند نمایشگر لمسی و دوربین عقب. ترکیبی از زیبایی و عملکرد عالی.",
-    images: ["/cars/shahin/1.jpg", "/cars/shahin/2.jpg", "/cars/shahin/3.jpg"],
-    isFeatured: true,
-    vin: "SAPSHAHIN1402C003",
-  },
-  {
-    brandName: "سایپا",
-    model: "کوییک",
-    modelSlug: "quick",
-    year: 1401,
-    price: 480000000,
-    mileage: 25000,
-    transmission: "دنده‌ای",
-    fuelType: "بنزین",
-    color: "آبی",
-    description:
-      "سایپا کوییک، خودروی اقتصادی و کم‌مصرف برای شهرهای شلوغ. با موتور ۱.۵ لیتری، طراحی هاچ‌بک و فضای مناسب برای یک خانواده جوان. بهترین گزینه برای شروع.",
-    images: ["/cars/quick/1.jpg"],
-    isFeatured: false,
-    vin: "SAPQUICK1401D004",
-  },
-  {
-    brandName: "ایران خودرو",
-    model: "تارا",
-    modelSlug: "tara",
-    year: 1402,
-    price: 680000000,
-    mileage: 0,
-    transmission: "دنده‌ای",
-    fuelType: "بنزین",
-    color: "سفید",
-    description:
-      "تارا، سدان جدید ایران خودرو با طراحی اروپایی و همکاری با شرکت‌های معتبر جهانی. کیفیت ساخت بالا، کابین جادار و امکانات ایمنی کامل. انتخابی شیک و مطمئن.",
-    images: ["/cars/tara/1.jpg", "/cars/tara/2.jpg"],
-    isFeatured: true,
-    vin: "IKDTARA1402E005",
-  },
-  {
-    brandName: "سایپا",
-    model: "ساینا",
-    modelSlug: "saina",
-    year: 1400,
-    price: 350000000,
-    mileage: 45000,
-    transmission: "دنده‌ای",
-    fuelType: "بنزین",
-    color: "قرمز",
-    description:
-      "ساینا، هاچ‌بک جمع‌وجور و اقتصادی سایپا. با مصرف سوخت بهینه، هزینه نگهداری پایین و طراحی جذاب. مناسب برای تردد در شهر و پارکینگ‌های کوچک.",
-    images: ["/cars/saina/1.jpg", "/cars/saina/2.jpg"],
-    isFeatured: false,
-    vin: "SAPSAINA1400F006",
-  },
-
-  // ===== INTERNATIONAL CARS =====
-  {
-    brandName: "تویوتا",
-    model: "کمری",
-    modelSlug: "camry",
-    year: 2024,
-    price: 3500000000,
-    mileage: 0,
-    transmission: "اتوماتیک",
-    fuelType: "بنزین",
-    color: "مشکی",
-    description:
-      "تویوتا کمری ۲۰۲۴، سدان لوکس و محبوب ژاپنی. با طراحی جدید، موتور هیبریدی با مصرف سوخت فوق‌العاده، کابین آرام و کیفیت ساخت بی‌نظیر. مناسب برای مدیران و خانواده‌های بزرگ.",
-    images: ["/cars/camry/1.jpg", "/cars/camry/2.jpg", "/cars/camry/3.jpg"],
-    isFeatured: true,
-    vin: "TOYCAM2024G007",
-  },
-  {
-    brandName: "بی‌ام‌و",
+    brandSlug: "bmw",
     model: "ایکس‌۵",
     modelSlug: "x5",
-    year: 2023,
+    year: 2024,
     price: 4800000000,
-    mileage: 15000,
+    mileage: 0,
     transmission: "اتوماتیک",
     fuelType: "دیزل",
     color: "سفید",
     description:
-      "بی‌ام‌و ایکس‌۵ ۲۰۲۳، شاسی‌بلند لوکس آلمانی. با موتور ۳.۰ لیتری توربو، سیستم چهارچرخ محرک xDrive، سقف پانوراما و فضای داخلی فوق‌لوکس. تجربه‌ای بی‌نظیر از رانندگی.",
-    images: [
-      "/cars/x5/1.jpg",
-      "/cars/x5/2.jpg",
-      "/cars/x5/3.jpg",
-      "/cars/x5/4.jpg",
-    ],
+      "بی‌ام‌و ایکس‌۵ ۲۰۲۴، شاسی‌بلند لوکس آلمانی. با موتور ۳.۰ لیتری توربو، سیستم چهارچرخ محرک xDrive، سقف پانوراما و فضای داخلی فوق‌لوکس. تجربه‌ای بی‌نظیر از رانندگی.",
+    images: ["/cars/bmw-x5/1.jpg", "/cars/bmw-x5/2.jpg", "/cars/bmw-x5/3.jpg"],
     isFeatured: true,
-    vin: "BMWX52023H008",
+    vin: "BMWX52024A001",
   },
   {
-    brandName: "مرسدس بنز",
-    model: "اس-کلاس",
-    modelSlug: "s-class",
-    year: 2024,
-    price: 6200000000,
-    mileage: 0,
-    transmission: "اتوماتیک",
-    fuelType: "بنزین",
-    color: "نقره‌ای",
-    description:
-      "مرسدس بنز اس-کلاس ۲۰۲۴، اوج لوکس‌گرایی در صنعت خودروسازی. با کابین دیجیتال کامل، سیستم صوتی بورمس، چراغ‌های دیجیتال و موتور فوق‌قدرتمند. سلطان جاده‌ها.",
-    images: ["/cars/s-class/1.jpg", "/cars/s-class/2.jpg"],
-    isFeatured: true,
-    vin: "MBSC2024I009",
-  },
-  {
-    brandName: "پورشه",
-    model: "کاین",
-    modelSlug: "cayenne",
+    brandSlug: "bmw",
+    model: "سری ۳",
+    modelSlug: "3-series",
     year: 2023,
-    price: 5500000000,
-    mileage: 8000,
-    transmission: "اتوماتیک",
-    fuelType: "بنزین",
-    color: "آبی",
-    description:
-      "پورشه کاین ۲۰۲۳، شاسی‌بلند اسپرت آلمانی. با موتور ۶ سیلندر، سیستم تعلیق هوشمند، طراحی اسپرت و هندلینگ فوق‌العاده. مناسب برای کسانی که عاشق رانندگی هستند.",
-    images: [
-      "/cars/cayenne/1.jpg",
-      "/cars/cayenne/2.jpg",
-      "/cars/cayenne/3.jpg",
-    ],
-    isFeatured: false,
-    vin: "PORCAY2023J010",
-  },
-  {
-    brandName: "هیوندای",
-    model: "سوناتا",
-    modelSlug: "sonata",
-    year: 2023,
-    price: 2800000000,
-    mileage: 22000,
-    transmission: "اتوماتیک",
-    fuelType: "بنزین",
-    color: "قرمز",
-    description:
-      "هیوندای سوناتا ۲۰۲۳، سدان زیبا و مدرن کرهای. با طراحی خطوط شارپ، موتور کم‌مصرف، کابین جادار و امکانات فناورانه مانند نمایشگر دوگانه. گزینه‌ای عالی برای خانواده.",
-    images: ["/cars/sonata/1.jpg", "/cars/sonata/2.jpg"],
-    isFeatured: false,
-    vin: "HYUSON2023K011",
-  },
-  {
-    brandName: "کیا",
-    model: "تلوراید",
-    modelSlug: "telluride",
-    year: 2024,
-    price: 3000000000,
-    mileage: 0,
+    price: 3200000000,
+    mileage: 12000,
     transmission: "اتوماتیک",
     fuelType: "بنزین",
     color: "مشکی",
     description:
-      "کیا تلوراید ۲۰۲۴، شاسی‌بلند خانوادگی ۷ نفره با طراحی خشن و عضلانی. با موتور ۳.۸ لیتری، کابین جادار و لاکچری، و کامل‌ترین امکانات ایمنی. بهترین همراه برای سفرهای طولانی.",
-    images: [
-      "/cars/telluride/1.jpg",
-      "/cars/telluride/2.jpg",
-      "/cars/telluride/3.jpg",
-    ],
-    isFeatured: true,
-    vin: "KIATEL2024L012",
+      "بی‌ام‌و سری ۳ ۲۰۲۳، سدان اسپرت آلمانی. با موتور ۲.۰ لیتری توربو، طراحی اسپرت و هندلینگ عالی. مناسب برای رانندگی‌های شهری و جاده‌ای.",
+    images: ["/cars/bmw-3-series/1.jpg", "/cars/bmw-3-series/2.jpg"],
+    isFeatured: false,
+    vin: "BMW3S2023B002",
   },
   {
-    brandName: "لکسوس",
-    model: "آرایکس",
-    modelSlug: "rx",
-    year: 2023,
-    price: 4200000000,
-    mileage: 10000,
+    brandSlug: "bmw",
+    model: "ایکس‌۷",
+    modelSlug: "x7",
+    year: 2024,
+    price: 7200000000,
+    mileage: 0,
     transmission: "اتوماتیک",
-    fuelType: "هیبرید",
+    fuelType: "بنزین",
     color: "نقره‌ای",
     description:
-      "لکسوس آرایکس ۲۰۲۳، شاسی‌بلند هیبرید ژاپنی با کیفیت ساخت بی‌نظیر. با موتور هیبریدی کم‌مصرف، کابین فوق‌آرام، و سیستم ایمنی کامل لکسوس. لوکس بودن را دوباره تعریف می‌کند.",
-    images: ["/cars/rx/1.jpg", "/cars/rx/2.jpg"],
-    isFeatured: false,
-    vin: "LEXRX2023M013",
+      "بی‌ام‌و ایکس‌۷ ۲۰۲۴، شاسی‌بلند ۷ نفره لوکس. با موتور ۴.۴ لیتری V8، کابین فوق‌لوکس و امکانات پیشرفته. پادشاه جاده‌ها.",
+    images: ["/cars/bmw-x7/1.jpg", "/cars/bmw-x7/2.jpg", "/cars/bmw-x7/3.jpg"],
+    isFeatured: true,
+    vin: "BMWX72024C003",
+  },
+
+  // ===== HONDA =====
+  {
+    brandSlug: "honda",
+    model: "سیویک",
+    modelSlug: "civic",
+    year: 2024,
+    price: 2500000000,
+    mileage: 0,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "آبی",
+    description:
+      "هوندا سیویک ۲۰۲۴، سدان جمع‌وجور و محبوب ژاپنی. با موتور کم‌مصرف، طراحی مدرن و کیفیت ساخت بالا. انتخابی عالی برای خانواده‌های جوان.",
+    images: ["/cars/honda-civic/1.jpg", "/cars/honda-civic/2.jpg"],
+    isFeatured: true,
+    vin: "HONCIV2024D004",
   },
   {
-    brandName: "تویوتا",
-    model: "لندکروزر",
-    modelSlug: "land-cruiser",
+    brandSlug: "honda",
+    model: "سی‌آر-وی",
+    modelSlug: "cr-v",
+    year: 2023,
+    price: 3200000000,
+    mileage: 15000,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "سفید",
+    description:
+      "هوندا سی‌آر-وی ۲۰۲۳، شاسی‌بلند خانوادگی ژاپنی. با فضای داخلی جادار، مصرف سوخت بهینه و قابلیت اطمینان بالا. بهترین همراه برای سفرهای خانوادگی.",
+    images: [
+      "/cars/honda-cr-v/1.jpg",
+      "/cars/honda-cr-v/2.jpg",
+      "/cars/honda-cr-v/3.jpg",
+    ],
+    isFeatured: false,
+    vin: "HONCRV2023E005",
+  },
+
+  // ===== LAMBORGHINI =====
+  {
+    brandSlug: "lamborghini",
+    model: "اوروس",
+    modelSlug: "urus",
     year: 2024,
-    price: 6800000000,
+    price: 9200000000,
+    mileage: 0,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "زرد",
+    description:
+      "لمبورگینی اوروس ۲۰۲۴، شاسی‌بلند اسپرت ایتالیایی. با موتور V8 توربو، طراحی خشن و سرعت بی‌نظیر. ترکیبی از لوکس و عملکرد اسپرت.",
+    images: [
+      "/cars/lamborghini-urus/1.jpg",
+      "/cars/lamborghini-urus/2.jpg",
+      "/cars/lamborghini-urus/3.jpg",
+    ],
+    isFeatured: true,
+    vin: "LAMURU2024F006",
+  },
+  {
+    brandSlug: "lamborghini",
+    model: "هوراکان",
+    modelSlug: "huracan",
+    year: 2023,
+    price: 8200000000,
+    mileage: 5000,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "سبز",
+    description:
+      "لمبورگینی هوراکان ۲۰۲۳، سوپراسپرت ایتالیایی. با موتور V10، طراحی افسانه‌ای و صدای منحصر‌به‌فرد. رویای هر راننده‌ای.",
+    images: [
+      "/cars/lamborghini-huracan/1.jpg",
+      "/cars/lamborghini-huracan/2.jpg",
+    ],
+    isFeatured: true,
+    vin: "LAMHUR2023G007",
+  },
+
+  // ===== MAZDA =====
+  {
+    brandSlug: "mazda",
+    model: "مزدا ۳",
+    modelSlug: "mazda3",
+    year: 2024,
+    price: 1800000000,
+    mileage: 0,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "قرمز",
+    description:
+      "مزدا ۳ ۲۰۲۴، هاچ‌بک اسپرت ژاپنی. با طراحی زیبا، موتور کم‌مصرف و هندلینگ عالی. انتخابی شیک و اقتصادی.",
+    images: ["/cars/mazda3/1.jpg", "/cars/mazda3/2.jpg"],
+    isFeatured: false,
+    vin: "MAZ3S2024H008",
+  },
+  {
+    brandSlug: "mazda",
+    model: "سی‌ایکس-۵",
+    modelSlug: "cx-5",
+    year: 2023,
+    price: 2800000000,
+    mileage: 18000,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "نقره‌ای",
+    description:
+      "مزدا سی‌ایکس-۵ ۲۰۲۳، شاسی‌بلند اسپرت ژاپنی. با طراحی کورو، کابین باکیفیت و عملکرد عالی. بهترین در کلاس خود.",
+    images: [
+      "/cars/mazda-cx5/1.jpg",
+      "/cars/mazda-cx5/2.jpg",
+      "/cars/mazda-cx5/3.jpg",
+    ],
+    isFeatured: false,
+    vin: "MAZCX52023I009",
+  },
+
+  // ===== NISSAN =====
+  {
+    brandSlug: "nissan",
+    model: "پاترول",
+    modelSlug: "patrol",
+    year: 2024,
+    price: 5800000000,
     mileage: 0,
     transmission: "اتوماتیک",
     fuelType: "دیزل",
     color: "سفید",
     description:
-      "تویوتا لندکروزر ۲۰۲۴، افسانه‌ای‌ترین شاسی‌بلند جهان. با قابلیت‌های بی‌نظیر آفرود، موتور ۶ سیلندر دیزل، کابین لاکچری و دوام افسانه‌ای. پادشاه جاده‌های صعب‌العبور.",
+      "نیسان پاترول ۲۰۲۴، شاسی‌بلند قدرتمند ژاپنی. با موتور V8، قابلیت‌های آفرود بی‌نظیر و کابین لوکس. پادشاه بیابان‌ها.",
     images: [
-      "/cars/land-cruiser/1.jpg",
-      "/cars/land-cruiser/2.jpg",
-      "/cars/land-cruiser/3.jpg",
+      "/cars/nissan-patrol/1.jpg",
+      "/cars/nissan-patrol/2.jpg",
+      "/cars/nissan-patrol/3.jpg",
     ],
     isFeatured: true,
-    vin: "TOYLC2024N014",
+    vin: "NISPAT2024J010",
   },
   {
-    brandName: "تسلا",
-    model: "مدل اس",
-    modelSlug: "model-s",
+    brandSlug: "nissan",
+    model: "قشقایی",
+    modelSlug: "qashqai",
+    year: 2023,
+    price: 2200000000,
+    mileage: 20000,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "مشکی",
+    description:
+      "نیسان قشقایی ۲۰۲۳، شاسی‌بلند جمع‌وجور ژاپنی. با طراحی مدرن، مصرف سوخت بهینه و فضای مناسب برای خانواده. محبوب در سراسر جهان.",
+    images: ["/cars/nissan-qashqai/1.jpg", "/cars/nissan-qashqai/2.jpg"],
+    isFeatured: false,
+    vin: "NISQAS2023K011",
+  },
+
+  // ===== PEUGEOT =====
+  {
+    brandSlug: "peugeot",
+    model: "۲۰۰۸",
+    modelSlug: "2008",
     year: 2024,
-    price: 5200000000,
+    price: 2100000000,
     mileage: 0,
     transmission: "اتوماتیک",
-    fuelType: "برقی",
-    color: "خاکستری",
+    fuelType: "بنزین",
+    color: "آبی",
     description:
-      "تسلا مدل اس ۲۰۲۴، پیشروترین سدان برقی جهان. با شتاب ۰ تا ۱۰۰ در ۲ ثانیه، اتوپایلوت کامل، صفحه‌نمایش ۱۷ اینچی و محدوده حرکت ۶۰۰ کیلومتر. آینده خودروسازی امروز اینجاست.",
+      "پژو ۲۰۰۸ ۲۰۲۴، کراس‌اوور فرانسوی. با طراحی جسورانه، کابین i-Cockpit و مصرف سوخت بهینه. انتخابی شیک و مدرن.",
+    images: ["/cars/peugeot-2008/1.jpg", "/cars/peugeot-2008/2.jpg"],
+    isFeatured: false,
+    vin: "PEU20082024L012",
+  },
+  {
+    brandSlug: "peugeot",
+    model: "۵۰۸",
+    modelSlug: "508",
+    year: 2023,
+    price: 3500000000,
+    mileage: 10000,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "نقره‌ای",
+    description:
+      "پژو ۵۰۸ ۲۰۲۳، سدان لوکس فرانسوی. با طراحی خیره‌کننده، کابین پیشرفته و امکانات کامل. ترکیبی از ظرافت و عملکرد.",
     images: [
-      "/cars/model-s/1.jpg",
-      "/cars/model-s/2.jpg",
-      "/cars/model-s/3.jpg",
+      "/cars/peugeot-508/1.jpg",
+      "/cars/peugeot-508/2.jpg",
+      "/cars/peugeot-508/3.jpg",
     ],
     isFeatured: true,
-    vin: "TESMS2024O015",
+    vin: "PEU5082023M013",
+  },
+
+  // ===== VOLKSWAGEN =====
+  {
+    brandSlug: "volkswagen",
+    model: "گلف",
+    modelSlug: "golf",
+    year: 2024,
+    price: 2600000000,
+    mileage: 0,
+    transmission: "اتوماتیک",
+    fuelType: "بنزین",
+    color: "سفید",
+    description:
+      "فولکس‌واگن گلف ۲۰۲۴، هاچ‌بک محبوب آلمانی. با طراحی کلاسیک، موتور کم‌مصرف و کیفیت ساخت بالا. بهترین هاچ‌بک تاریخ.",
+    images: ["/cars/volkswagen-golf/1.jpg", "/cars/volkswagen-golf/2.jpg"],
+    isFeatured: true,
+    vin: "VWGLF2024N014",
+  },
+  {
+    brandSlug: "volkswagen",
+    model: "توارگ",
+    modelSlug: "touareg",
+    year: 2023,
+    price: 4500000000,
+    mileage: 8000,
+    transmission: "اتوماتیک",
+    fuelType: "دیزل",
+    color: "مشکی",
+    description:
+      "فولکس‌واگن توارگ ۲۰۲۳، شاسی‌بلند لوکس آلمانی. با موتور V6 دیزل، کابین جادار و امکانات پیشرفته. ترکیبی از لوکس و عملکرد.",
+    images: [
+      "/cars/volkswagen-touareg/1.jpg",
+      "/cars/volkswagen-touareg/2.jpg",
+      "/cars/volkswagen-touareg/3.jpg",
+    ],
+    isFeatured: false,
+    vin: "VWTUR2023O015",
   },
 ];
 
 // ============================================
-// SEED FUNCTION
+// 3. SEED INQUIRIES (Optional - For Testing)
+// ============================================
+
+const inquiryData: Omit<NewInquiry, "id" | "createdAt">[] = [
+  {
+    carId: null, // Contact page inquiry
+    type: "contact",
+    name: "احمد محمدی",
+    email: "ahmad@example.com",
+    phone: "۰۹۱۲۱۲۳۴۵۶۷",
+    preferredDate: null,
+    message: "سلام، من به خرید خودرو علاقه دارم. لطفاً من را راهنمایی کنید.",
+    status: "new",
+  },
+  {
+    carId: null,
+    type: "contact",
+    name: "سارا حسینی",
+    email: "sara@example.com",
+    phone: "۰۹۱۲۱۲۳۴۵۶۸",
+    preferredDate: null,
+    message: "اطلاعات بیشتری درباره قسط‌بندی می‌خواهم.",
+    status: "new",
+  },
+];
+
+// ============================================
+// 4. SEED FUNCTION
 // ============================================
 
 async function seed() {
@@ -403,6 +424,7 @@ async function seed() {
   try {
     // Clear existing data
     console.log("🧹 پاک کردن اطلاعات قبلی...");
+    await db.delete(inquiries);
     await db.delete(cars);
     await db.delete(brands);
     console.log("✅ اطلاعات قبلی پاک شد");
@@ -418,18 +440,13 @@ async function seed() {
     // Insert cars
     console.log("🚗 درج خودروها...");
 
-    // Build car data with brand IDs
     const carData: NewCar[] = [];
     for (const car of carSeedData) {
-      const brand = await db.query.brands.findFirst({
-        where: (brands, { eq }) => eq(brands.name, car.brandName),
-      });
-      if (!brand) throw new Error(`Brand "${car.brandName}" not found`);
-
-      const slug = generateSlug(brand.slug, car.modelSlug, car.year);
+      const brandId = await getBrandIdBySlug(car.brandSlug);
+      const slug = generateSlug(car.brandSlug, car.modelSlug, car.year);
 
       carData.push({
-        brandId: brand.id,
+        brandId,
         slug,
         model: car.model,
         year: car.year,
@@ -449,10 +466,17 @@ async function seed() {
     const insertedCars = await db.insert(cars).values(carData).returning();
     console.log(`✅ ${insertedCars.length} خودرو با موفقیت ثبت شد!`);
 
+    // Insert inquiries (optional)
+    console.log("📝 درج پیام‌های نمونه...");
+    await db.insert(inquiries).values(inquiryData);
+    console.log(`✅ ${inquiryData.length} پیام نمونه ثبت شد`);
+
     // Summary
     console.log("\n📊 خلاصه:");
     console.log(`   تعداد برندها: ${insertedBrands.length}`);
     console.log(`   تعداد خودروها: ${insertedCars.length}`);
+    console.log(`   پیام‌ها: ${inquiryData.length}`);
+    console.log("\n🎉 عملیات با موفقیت انجام شد!");
 
     // Show example
     if (insertedCars.length > 0) {
@@ -463,7 +487,7 @@ async function seed() {
       console.log("\n📝 نمونه خودرو:");
       console.log(`   ${brand?.name} ${firstCar.model} (${firstCar.year})`);
       console.log(`   قیمت: ${firstCar.price} تومان`);
-      console.log(`   آدرس: /cars/${firstCar.slug}`);
+      console.log(`   آدرس: /cars/${brand?.slug}/${firstCar.slug}`);
     }
   } catch (error) {
     console.error("❌ خطا در فرآیند دیتابیس:", error);

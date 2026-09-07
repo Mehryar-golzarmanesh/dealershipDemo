@@ -6,7 +6,7 @@ import CarCard from "./carCard";
 import Line from "./ui/line";
 
 const HeroMiddle = async () => {
-  const featured = await getCarsWithBrand();
+  const featured = await getCarsWithBrand(3);
   return (
     <div className="bg-[#14161a] py-20 px-5">
       <div className=" border-b border-t border-[#333436]">
@@ -39,11 +39,11 @@ const HeroMiddle = async () => {
         </div>
         <div className="flex flex-col lg:flex-row justify-between">
           <h3 className="font-semibold text-3xl">
-            چهار خودرو از نمایشگاه، شایسته نگاهی دقیق‌تر.
+            سه خودرو از نمایشگاه، شایسته نگاهی دقیق‌تر.
           </h3>
 
           <Link
-            href="cars"
+            href="/brands"
             className=" text-sm flex gap-2 items-center text-[#adaaa1]"
           >
             <span className="border-b border-[#adaaa1] pb-1">
@@ -59,7 +59,7 @@ const HeroMiddle = async () => {
             <CarCard
               fuel_type={featuredCar.fuelType}
               img={featuredCar.images}
-              make={featuredCar.model}
+              make={featuredCar.brand.name}
               mileage={featuredCar.mileage}
               model={featuredCar.model}
               price={formatPersianPrice(featuredCar.price)}
