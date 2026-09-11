@@ -1,3 +1,5 @@
+"use client";
+
 import { nav_links } from "@/lib/constants";
 import Link from "next/link";
 import { Button } from "./button";
