@@ -1,4 +1,3 @@
-import { CarGallery } from "@/components/carGallery";
 import HeroSection from "@/components/hero";
 import HeroBottom from "@/components/heroBottom";
 import HeroMiddle from "@/components/heroMiddle";
@@ -13,7 +12,7 @@ import HeroMiddle from "@/components/heroMiddle";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 w-full bg-[#14161a] pb-20 px-5">
+    <div className="flex flex-col flex-1 w-full bg-[#14161a] pb-20 px-5 lg:px-0">
       <HeroSection />
       <HeroMiddle />
       <HeroBottom />

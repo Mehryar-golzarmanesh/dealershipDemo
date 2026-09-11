@@ -8,7 +8,7 @@ import Line from "./ui/line";
 const HeroMiddle = async () => {
   const featured = await getCarsWithBrand(3);
   return (
-    <div className="bg-[#14161a] py-20 px-5">
+    <div className="bg-[#14161a] pb-20 px-5 lg:px-0">
       <div className=" border-b border-t border-[#333436]">
         <div className="grid grid-cols-1 lg:grid-cols-4 text-sm text-[#adaaa1] py-5 mx-auto max-w-6xl gap-5">
           <p className="flex items-center justify-center gap-1">

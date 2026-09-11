@@ -21,7 +21,7 @@ const HeroSection = async () => {
     brands_lists_array.push({ label: brand.name, value: brand.slug }),
   );
   return (
-    <div className="hero-gradient sheen-overlay relative w-full px-5 pb-20">
+    <div className="hero-gradient sheen-overlay relative w-full px-5 pb-32">
       <div className="relative z-10 flex h-full text-white flex-col max-w-4xl mx-auto pt-30 gap-7">
         <div className="flex gap-1 items-center">
           <Line needsHide={false} />

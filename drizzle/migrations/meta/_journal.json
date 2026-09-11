@@ -15,6 +15,13 @@
       "when": 1788286386275,
       "tag": "0001_sparkling_spencer_smythe",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1757280000000,
+      "tag": "0002_add_car_spec_columns",
+      "breakpoints": true
     }
   ]
 }

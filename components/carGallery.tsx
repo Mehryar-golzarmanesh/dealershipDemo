@@ -44,8 +44,8 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
 
   return (
     <>
-      {/* main image, now with nav arrows */}
-      <div className="relative">
+      {/* main image*/}
+      <div className="relative ">
         <div className="overflow-hidden rounded-md" ref={mainRef}>
           <div className="flex">
             {images.map((src, i) => (
@@ -58,9 +58,9 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
                   src={src}
                   alt={`${alt} — تصویر ${i + 1}`}
                   fill
-                  sizes="(max-width: 768px) 100vw, 800px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={i === 0}
-                  className="object-cover"
+                  className="object-cover border border-[#b8935f] rounded-xl"
                 />
               </button>
             ))}
@@ -96,7 +96,7 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
         </span>
       </div>
 
-      {/* always-visible thumbnail strip — this is the piece I dropped last time */}
+      {/* always-visible thumbnail strip */}
       <div className="overflow-hidden mt-3" ref={thumbRef}>
         <div className="flex gap-3">
           {images.map((src, i) => (
