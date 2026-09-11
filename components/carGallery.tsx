@@ -109,7 +109,13 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
                   : "opacity-55 border-white/10"
               }`}
             >
-              <Image src={src} alt="" fill className="object-cover" />
+              <Image
+                src={src}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+              />
             </button>
           ))}
         </div>

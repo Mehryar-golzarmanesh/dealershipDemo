@@ -22,6 +22,20 @@
       "when": 1757280000000,
       "tag": "0002_add_car_spec_columns",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789156098819,
+      "tag": "0003_dapper_randall",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789156779620,
+      "tag": "0004_mushy_kulan_gath",
+      "breakpoints": true
     }
   ]
 }

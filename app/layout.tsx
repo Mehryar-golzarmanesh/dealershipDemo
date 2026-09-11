@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import NavBar from "@/components/ui/site-header";
 import Footer from "@/components/ui/site-footer";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <NavBar />
         <main className="flex-1 min-h-full pt-10 w-full">{children}</main>
         <Footer />
+        <Toaster richColors position="bottom-right" />
       </body>
     </html>
   );

@@ -38,19 +38,21 @@ const CarDetailPage = async ({ params }: Props) => {
       <div className="max-w-6xl mx-auto">
         {Breadcrumbs(slug)}
         <CarDetail car={car} />
-        <div className="pt-15">
-          <div className="text-[#b8935f] flex gap-2 items-center">
-            <Line needsHide={false} />
-            <p className="text-xs font-semibold">گالری تصاویر</p>
+        <div className="px-5 xl:px-0">
+          <div className="pt-15 ">
+            <div className="text-[#b8935f] flex gap-2 items-center">
+              <Line needsHide={false} />
+              <p className="text-xs font-semibold">گالری تصاویر</p>
+            </div>
+            <p className="text-3xl py-5">این خودرو را از هر زاویه ببینید.</p>
+            <CarGallery
+              images={car.images}
+              alt={`تصاویر ماشین ${car.brand.name} ${car.model}`}
+            />
           </div>
-          <p className="text-3xl py-5">این خودرو را از هر زاویه ببینید.</p>
-          <CarGallery
-            images={car.images}
-            alt={`تصاویر ماشین ${car.brand.name} ${car.model}`}
-          />
+          {Info(car)}
+          {Form()}
         </div>
-        {Info(car)}
-        {Form()}
         <div></div>
       </div>
     </div>

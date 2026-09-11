@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/card";
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -29,6 +28,8 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
+import { toPersianNumbers } from "@/lib/number-formatter";
+import { DatePicker } from "../datePicker";
 
 const formSchema = z.object({
   fullName: z
@@ -36,11 +37,15 @@ const formSchema = z.object({
     .min(5, "نام  و نام خانوادگی کمتر از 5 حرف نمی تواند باشد..")
     .max(32, "نام و نام خانوادگی بیشتر از 32 حرف نمی تواند باشد."),
   phone: z
-    .number()
+    .string()
     .min(11, "لطفا شماره موبایل خود را صحیح وارد کنید.")
     .max(11, "لطفا شماره موبایل خود را صحیح وارد کنید."),
-  email: z.email("لطفا ایمیل خود را صحیح وارد کنید."),
-  description: z.string().max(500, "بیشتر از 500 حرف قابل دریافت نیست."),
+  email: z.email("لطفا ایمیل خود را صحیح وارد کنید.").optional(),
+  date: z.date({ error: "لطفا تاریخ را انتخاب کنید." }).optional(),
+  description: z
+    .string()
+    .max(100, "بیشتر از 100 حرف قابل دریافت نیست.")
+    .optional(),
 });
 
 export function ContactForm() {
@@ -49,28 +54,64 @@ export function ContactForm() {
     defaultValues: {
       fullName: "",
       description: "",
+      phone: "",
+      email: "",
+      date: undefined,
     },
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    toast("You submitted the following values:", {
+    const formattedDate = data.date
+      ? new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }).format(data.date)
+      : "انتخاب نشده";
+
+    const summary = [
+      { label: "نام و نام خانوادگی", value: data.fullName },
+      { label: "شماره همراه", value: data.phone },
+      { label: "ایمیل", value: data.email || "—" },
+      { label: "تاریخ پیشنهادی", value: formattedDate },
+    ];
+
+    toast.success("درخواست تست درایو ثبت شد", {
       description: (
-        <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
+        <div className="p-5 w-[320px] space-y-2 text-right">
+          {summary.map(({ label, value }) => (
+            <div
+              key={label}
+              className="flex items-start justify-between gap-3 border-b border-[#383b3e] pb-1.5 text-sm last:border-none last:pb-0"
+            >
+              <span className="text-[#d9c29a]">{label}</span>
+              <span className="text-left text-[#f6f3ef] rtl:text-right">
+                {value}
+              </span>
+            </div>
+          ))}
+        </div>
       ),
       position: "bottom-right",
+      duration: 10000,
       classNames: {
-        content: "flex flex-col gap-2",
+        toast:
+          "border border-[#b8935f]/80 bg-[#1b1e23] text-[#ede9e1] shadow-[0_12px_40px_rgba(0,0,0,0.45)]",
+        title: "text-[#f4e7d3] font-bold",
+        description: "text-[#dbd6ce]",
+        closeButton:
+          "border-[#b8935f]/70 bg-[#1b1e23] text-[#edd8a6] hover:bg-[#25292d]",
       },
       style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
+        borderRadius: "14px",
+        background: "#1b1e23",
+        color: "#ede9e1",
       } as React.CSSProperties,
     });
   }
 
   return (
-    <Card className="max-w-7xl bg-[#1b1e23] rounded-xl">
+    <Card className="max-w-7xl bg-[#1b1e23] rounded-xl border-[#383b3e] border">
       <CardHeader>
         <CardTitle className="text-[#ede9e1] text-3xl">
           درخواست تست درایو
@@ -81,20 +122,24 @@ export function ContactForm() {
       </CardHeader>
       <CardContent>
         <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
-          <FieldGroup>
+          <FieldGroup className="grid grid-cols-2">
             <Controller
               name="fullName"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-title">
-                    Bug Title
+                  <FieldLabel
+                    htmlFor="form-rhf-demo-title"
+                    className="text-white"
+                  >
+                    نام و نام خانوادگی
                   </FieldLabel>
                   <Input
+                    type="text"
                     {...field}
                     id="form-rhf-demo-title"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Login button not working on mobile"
+                    placeholder="مثلا مهریار گلزارمنش"
                     autoComplete="off"
                   />
                   {fieldState.invalid && (
@@ -104,32 +149,101 @@ export function ContactForm() {
               )}
             />
             <Controller
-              name="description"
+              name="phone"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-description">
-                    Description
+                  <FieldLabel
+                    htmlFor="form-rhf-demo-phone"
+                    className="text-white"
+                  >
+                    شماره همراه
                   </FieldLabel>
-                  <InputGroup>
+                  <Input
+                    type="tel"
+                    {...field}
+                    id="form-rhf-demo-phone"
+                    aria-invalid={fieldState.invalid}
+                    placeholder={`${toPersianNumbers(0)}${toPersianNumbers(913)}xxxxxxx`}
+                    autoComplete="off"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+            <Controller
+              name="email"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel
+                    htmlFor="form-rhf-demo-email"
+                    className="text-white"
+                  >
+                    ایمیل
+                  </FieldLabel>
+                  <Input
+                    type="email"
+                    {...field}
+                    id="form-rhf-demo-email"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="ایمیل شما"
+                    autoComplete="off"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            <Controller
+              name="date"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <DatePicker
+                    value={field.value}
+                    onChange={field.onChange}
+                    label="تاریخ پیشنهادی"
+                    invalid={fieldState.invalid}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            <Controller
+              name="description"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid} className="col-span-2">
+                  <FieldLabel
+                    htmlFor="form-rhf-demo-description"
+                    className="text-white"
+                  >
+                    توضیحات (اختیاری)
+                  </FieldLabel>
+                  <InputGroup className="bg-transparent border-b border-b-[#323436] hover:border-b-[#b8935f] rounded-none">
                     <InputGroupTextarea
                       {...field}
                       id="form-rhf-demo-description"
-                      placeholder="I'm having an issue with the login button on mobile."
+                      placeholder="زمان ترجیحی, سوالات خاص و ..."
                       rows={6}
-                      className="min-h-24 resize-none"
+                      className="min-h-24 resize-none bg-transparent"
                       aria-invalid={fieldState.invalid}
                     />
                     <InputGroupAddon align="block-end">
-                      <InputGroupText className="tabular-nums">
-                        {field.value.length}/100 characters
+                      <InputGroupText className="tabular-nums bg-transparent">
+                        {toPersianNumbers(field.value!.length)}/
+                        {toPersianNumbers(100)} کارکتر
                       </InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
-                  <FieldDescription>
-                    Include steps to reproduce, expected behavior, and what
-                    actually happened.
-                  </FieldDescription>
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}
@@ -137,18 +251,27 @@ export function ContactForm() {
               )}
             />
           </FieldGroup>
+          <CardFooter className="pt-5">
+            <Field
+              orientation="horizontal"
+              className="flex-col md:flex-row gap-4 justify-between"
+            >
+              <div className="text-[#717377]">
+                پس از ثبت درخواست، کارشناسان ما ظرف چند ساعت با شما تماس
+                می‌گیرند.
+              </div>
+              <div>
+                <Button
+                  type="submit"
+                  className="bg-[#b8935f] text-black hover:bg-[#d9b37e] hover:text-black rounded-none p-6"
+                >
+                  ثبت درخواست تست درایو
+                </Button>
+              </div>
+            </Field>
+          </CardFooter>
         </form>
       </CardContent>
-      <CardFooter>
-        <Field orientation="horizontal">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
-            Reset
-          </Button>
-          <Button type="submit" form="form-rhf-demo">
-            Submit
-          </Button>
-        </Field>
-      </CardFooter>
     </Card>
   );
 }

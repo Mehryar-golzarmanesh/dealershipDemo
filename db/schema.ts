@@ -69,6 +69,23 @@ export const inquiries = pgTable("inquiries", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// ===== Test Drive Requests Table =====
+export const testDriveRequests = pgTable("test_drive_requests", {
+  id: serial("id").primaryKey(),
+  fullName: varchar("full_name", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 50 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  preferredDate: timestamp("preferred_date", { withTimezone: true }).notNull(),
+  description: text("description"),
+  status: varchar("status", { length: 20 }).notNull().default("new"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 // ===== Relations =====
 export const brandsRelations = relations(brands, ({ many }) => ({
   cars: many(cars),
@@ -95,6 +112,8 @@ export type Car = typeof cars.$inferSelect;
 export type NewCar = typeof cars.$inferInsert;
 export type Inquiry = typeof inquiries.$inferSelect;
 export type NewInquiry = typeof inquiries.$inferInsert;
+export type TestDriveRequest = typeof testDriveRequests.$inferSelect;
+export type NewTestDriveRequest = typeof testDriveRequests.$inferInsert;
 export type CarWithBrand = Car & {
   brand: Brand;
 };
