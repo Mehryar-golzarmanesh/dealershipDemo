@@ -60,54 +60,89 @@ export function ContactForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    const formattedDate = data.date
-      ? new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }).format(data.date)
-      : "انتخاب نشده";
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      const payload = {
+        fullName: data.fullName,
+        phone: data.phone,
+        email: data.email || "",
+        date: data.date?.toISOString() || "",
+        description: data.description || "",
+      };
 
-    const summary = [
-      { label: "نام و نام خانوادگی", value: data.fullName },
-      { label: "شماره همراه", value: data.phone },
-      { label: "ایمیل", value: data.email || "—" },
-      { label: "تاریخ پیشنهادی", value: formattedDate },
-    ];
+      const response = await fetch("/api/test-drive", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    toast.success("درخواست تست درایو ثبت شد", {
-      description: (
-        <div className="p-5 w-[320px] space-y-2 text-right">
-          {summary.map(({ label, value }) => (
-            <div
-              key={label}
-              className="flex items-start justify-between gap-3 border-b border-[#383b3e] pb-1.5 text-sm last:border-none last:pb-0"
-            >
-              <span className="text-[#d9c29a]">{label}</span>
-              <span className="text-left text-[#f6f3ef] rtl:text-right">
-                {value}
-              </span>
-            </div>
-          ))}
-        </div>
-      ),
-      position: "bottom-right",
-      duration: 10000,
-      classNames: {
-        toast:
-          "border border-[#b8935f]/80 bg-[#1b1e23] text-[#ede9e1] shadow-[0_12px_40px_rgba(0,0,0,0.45)]",
-        title: "text-[#f4e7d3] font-bold",
-        description: "text-[#dbd6ce]",
-        closeButton:
-          "border-[#b8935f]/70 bg-[#1b1e23] text-[#edd8a6] hover:bg-[#25292d]",
-      },
-      style: {
-        borderRadius: "14px",
-        background: "#1b1e23",
-        color: "#ede9e1",
-      } as React.CSSProperties,
-    });
+      if (!response.ok) {
+        const error = await response.json();
+        toast.error("خطا در ارسال درخواست", {
+          description: error.error || "لطفا دوباره تلاش کنید.",
+          position: "bottom-right",
+        });
+        return;
+      }
+
+      const formattedDate = data.date
+        ? new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }).format(data.date)
+        : "انتخاب نشده";
+
+      const summary = [
+        { label: "نام و نام خانوادگی", value: data.fullName },
+        { label: "شماره همراه", value: data.phone },
+        { label: "ایمیل", value: data.email || "—" },
+        { label: "تاریخ پیشنهادی", value: formattedDate },
+      ];
+
+      toast.success("درخواست تست درایو ثبت شد", {
+        description: (
+          <div className="p-5 w-[320px] space-y-2 text-right">
+            {summary.map(({ label, value }) => (
+              <div
+                key={label}
+                className="flex items-start justify-between gap-3 border-b border-[#383b3e] pb-1.5 text-sm last:border-none last:pb-0"
+              >
+                <span className="text-[#d9c29a]">{label}</span>
+                <span className="text-left text-[#f6f3ef] rtl:text-right">
+                  {value}
+                </span>
+              </div>
+            ))}
+          </div>
+        ),
+        position: "bottom-right",
+        duration: 10000,
+        classNames: {
+          toast:
+            "border border-[#b8935f]/80 bg-[#1b1e23] text-[#ede9e1] shadow-[0_12px_40px_rgba(0,0,0,0.45)]",
+          title: "text-[#f4e7d3] font-bold",
+          description: "text-[#dbd6ce]",
+          closeButton:
+            "border-[#b8935f]/70 bg-[#1b1e23] text-[#edd8a6] hover:bg-[#25292d]",
+        },
+        style: {
+          borderRadius: "14px",
+          background: "#1b1e23",
+          color: "#ede9e1",
+        } as React.CSSProperties,
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast.error("خطا در ارسال درخواست", {
+        description: "لطفا دوباره تلاش کنید.",
+        position: "bottom-right",
+      });
+    }
   }
 
   return (

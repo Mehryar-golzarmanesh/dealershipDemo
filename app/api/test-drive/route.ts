@@ -7,11 +7,8 @@ import { testDriveRequests } from "@/db/schema";
 const testDriveSchema = z.object({
   fullName: z.string().min(5).max(32),
   phone: z.string().min(11).max(11),
-  email: z.string().email(),
-  date: z
-    .string()
-    .datetime({ offset: true })
-    .or(z.string().regex(/^\d{4}-\d{2}-\d{2}T/)),
+  email: z.email(),
+  date: z.string().or(z.string().regex(/^\d{4}-\d{2}-\d{2}T/)),
   description: z.string().max(100).optional().or(z.literal("")),
 });
 
@@ -32,7 +29,7 @@ export async function POST(request: Request) {
 
     if (Number.isNaN(preferredDate.getTime())) {
       return NextResponse.json(
-        { error: "تاریخ انتخاب‌شده معتبر نیست." },
+        { error: "تاریخ انتخاب‌ شده معتبر نیست." },
         { status: 400 },
       );
     }
