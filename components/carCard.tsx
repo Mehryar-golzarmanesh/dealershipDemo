@@ -25,7 +25,6 @@ const CarCard = ({
   fuel_type,
   price,
   slug,
-  brandSlug,
 }: Props) => {
   return (
     <div className="flex w-full flex-col bg-[#1b1e23] gap-1">
@@ -47,8 +46,8 @@ const CarCard = ({
           {year} <SmallSlash /> {mileage} کیلومتر <SmallSlash /> {fuel_type}
         </div>
         <Separator className="bg-[#383b3e]" />
-        <div className="flex justify-between">
-          <p>{price} میلیون تومان</p>
+        <div className="flex justify-between gap-3">
+          <p className="text-xs sm:text-lg">{price} میلیون تومان</p>
           <Link
             href={`/cars/${slug}`}
             className="flex gap-1 text-xs items-center text-[#d9b37e]"
