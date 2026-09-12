@@ -21,8 +21,8 @@ const HeroSection = async () => {
     brands_lists_array.push({ label: brand.name, value: brand.slug }),
   );
   return (
-    <div className="hero-gradient sheen-overlay relative w-full px-5 pb-32">
-      <div className="relative z-10 flex h-full text-white flex-col max-w-4xl mx-auto pt-30 gap-7">
+    <div className="hero-gradient sheen-overlay relative w-full overflow-x-hidden px-4 pb-32 sm:px-5">
+      <div className="relative z-10 mx-auto flex h-full max-w-4xl flex-col gap-7 pt-30 text-white">
         <div className="flex gap-1 items-center">
           <Line needsHide={false} />
           <p className="text-sm text-[#d9b37e]">
@@ -57,7 +57,7 @@ const HeroSection = async () => {
             />
             <SelectAlignItem items={prices} placeholder="300to500" />
             <SelectAlignItem items={years} placeholder="2024to2026" />
-            <Button className="rounded-xs p-5 max-w-55">
+            <Button className="rounded-xs p-5 max-w-55 text-xs md:text-lg">
               جست‌وجوی خودروها
             </Button>
           </div>

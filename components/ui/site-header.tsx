@@ -7,8 +7,8 @@ import Image from "next/image";
 
 const NavBar = () => {
   return (
-    <nav className=" bg-[#14161a] py-5 text-white border-b border-[#323337] w-full supports-backdrop-blur:bg-background/60 fixed left-0 right-0 top-0 z-20 backdrop-blur px-5">
-      <div className="flex max-w-6xl mx-auto justify-between items-center">
+    <nav className="fixed inset-x-0 top-0 z-20 w-full border-b border-[#323337] bg-[#14161a] px-4 py-5 text-white backdrop-blur supports-backdrop-blur:bg-background/60 sm:px-5">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3">
         <div className="flex items-center gap-5">
           <Link href="/">
             <Image
@@ -31,7 +31,7 @@ const NavBar = () => {
           </ul>
         </div>
         <Link href="/test-drive">
-          <Button className="py-5.5 px-5 rounded-none font-semibold">
+          <Button className="rounded-none px-5 py-5.5 font-semibold">
             رزرو تست درایو
           </Button>
         </Link>

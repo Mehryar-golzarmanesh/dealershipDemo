@@ -28,7 +28,7 @@ const CarCard = ({
   brandSlug,
 }: Props) => {
   return (
-    <div className="flex flex-col w-95 bg-[#1b1e23] gap-1">
+    <div className="flex w-full flex-col bg-[#1b1e23] gap-1">
       <div>
         <Image
           src={img[0]}

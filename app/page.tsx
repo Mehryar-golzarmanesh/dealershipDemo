@@ -12,7 +12,7 @@ import HeroMiddle from "@/components/heroMiddle";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 w-full bg-[#14161a] pb-20 px-5 lg:px-0">
+    <div className="flex w-full flex-1 flex-col bg-[#14161a] pb-20 px-4 sm:px-5 lg:px-0">
       <HeroSection />
       <HeroMiddle />
       <HeroBottom />
