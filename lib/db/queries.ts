@@ -31,6 +31,7 @@ export async function getCarWithBrandBySlug(slug: string) {
       isAvailable: cars.isAvailable,
       createdAt: cars.createdAt,
       updatedAt: cars.updatedAt,
+      brandName: cars.brandName,
       // Brand fields
       brand: {
         id: brands.id,
@@ -42,7 +43,7 @@ export async function getCarWithBrandBySlug(slug: string) {
     })
     .from(cars)
     .leftJoin(brands, eq(cars.brandId, brands.id))
-    .where(eq(cars.slug, slug));
+    .where(eq(cars.brandName, slug));
 
-  return result[0] || null;
+  return result || null;
 }

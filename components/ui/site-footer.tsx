@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="flex flex-col flex-1 text-sm gap-5">
           <div className="flex items-center">
             <Image
-              src="/footer-logo-enhanced.svg"
+              src="/logo.svg"
               alt="لوگوی ارم خودروی عرفان"
               width={150}
               height={150}

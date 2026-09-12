@@ -51,6 +51,7 @@ export const cars = pgTable("cars", {
   isAvailable: boolean("is_available").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  brandName: varchar("brandname", { length: 255 }),
 });
 
 // ===== Inquiries Table =====

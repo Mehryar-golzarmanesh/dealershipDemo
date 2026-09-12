@@ -17,6 +17,7 @@ const CarDetail = ({ car }: Props) => {
           src={car.images[0]}
           alt={`عکس ماشین ${car.brand} ${car.model}`}
           fill
+          sizes="(max-width: 768px) 100vw, 1152px"
           loading="eager"
           className="object-cover rounded-xl rounded-b-none"
         />

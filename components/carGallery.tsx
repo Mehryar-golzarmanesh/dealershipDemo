@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
@@ -18,6 +18,8 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const savedScroll = useRef<number | null>(null);
+  const savedFocus = useRef<HTMLElement | null>(null);
 
   const onThumbClick = useCallback(
     (index: number) => mainApi?.scrollTo(index),
@@ -38,9 +40,51 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
   }, [mainApi, thumbApi]);
 
   const openLightbox = useCallback((index: number) => {
+    if (typeof document !== "undefined")
+      savedFocus.current = document.activeElement as HTMLElement | null;
     setSelectedIndex(index);
     setLightboxOpen(true);
   }, []);
+
+  // Lock body scroll while lightbox is open and restore scroll/focus on close
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (lightboxOpen) {
+      savedScroll.current = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${savedScroll.current}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
+    } else {
+      if (savedScroll.current !== null) {
+        const scrollTo = savedScroll.current;
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.width = "";
+        window.scrollTo({ top: scrollTo, left: 0, behavior: "auto" });
+        savedScroll.current = null;
+      }
+      if (savedFocus.current) {
+        try {
+          savedFocus.current.focus({ preventScroll: true });
+        } catch (e) {
+          savedFocus.current.focus();
+        }
+        savedFocus.current = null;
+      }
+    }
+    // cleanup in case component unmounts while locked
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+    };
+  }, [lightboxOpen]);
 
   return (
     <>
@@ -60,6 +104,7 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={i === 0}
+                  quality={90}
                   className="object-cover border border-[#b8935f] rounded-xl"
                 />
               </button>
@@ -113,7 +158,8 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
                 src={src}
                 alt=""
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="92px"
+                quality={90}
                 className="object-cover"
               />
             </button>

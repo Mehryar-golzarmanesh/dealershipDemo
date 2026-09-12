@@ -3,53 +3,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
 import SmallSlash from "./ui/slash";
+import { CarWithBrand } from "@/db/schema";
+import { formatPersianPrice } from "@/lib/number-formatter";
 
 interface Props {
-  img: string[];
-  make: string;
-  model: string;
-  year: number;
-  mileage: number;
-  fuel_type: string;
-  price: string;
-  slug: string;
-  brandSlug: string;
+  car: CarWithBrand;
 }
 
-const CarCard = ({
-  img,
-  make,
-  model,
-  year,
-  mileage,
-  fuel_type,
-  price,
-  slug,
-}: Props) => {
+const CarCard = ({ car }: Props) => {
   return (
     <div className="flex w-full flex-col bg-[#1b1e23] gap-1">
       <div>
         <Image
-          src={img[0]}
-          alt={`عکس ماشین ${make} ${model}`}
+          src={car.images[0]}
+          alt={`عکس ماشین ${car.brand.name} ${car.model}`}
           width={1920}
           height={780}
           className="w-full object-cover h-54"
         />
       </div>
       <div className="flex flex-col gap-3 text-[#b9b5ac] p-5">
-        <p className="text-xs text-[#d9b37e]">{make}</p>
-        <Link href={`/cars/${slug}`}>
-          <p className="text-xl text-white">{model}</p>
+        <p className="text-xs text-[#d9b37e]">{car.brand.name}</p>
+        <Link href={`/cars/${car.slug}`}>
+          <p className="text-xl text-white">{car.model}</p>
         </Link>
         <div className="flex gap-5 text-xs">
-          {year} <SmallSlash /> {mileage} کیلومتر <SmallSlash /> {fuel_type}
+          {car.year} <SmallSlash /> {car.mileage} کیلومتر <SmallSlash />{" "}
+          {car.fuelType}
         </div>
         <Separator className="bg-[#383b3e]" />
         <div className="flex justify-between gap-3">
-          <p className="text-xs sm:text-lg">{price} میلیون تومان</p>
+          <p className="text-xs sm:text-lg">
+            {formatPersianPrice(car.price)} میلیون تومان
+          </p>
           <Link
-            href={`/cars/${slug}`}
+            href={`/cars/${car.slug}`}
             className="flex gap-1 text-xs items-center text-[#d9b37e]"
           >
             جزئیات <MoveLeft className="size-3" />

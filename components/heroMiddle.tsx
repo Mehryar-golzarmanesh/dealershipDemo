@@ -56,18 +56,7 @@ const HeroMiddle = async () => {
         </div>
         <div className="grid grid-cols-1 mx-auto lg:grid-cols-2 xl:grid-cols-3 xl:mx-0 gap-5 pt-5">
           {featured.map((featuredCar) => (
-            <CarCard
-              fuel_type={featuredCar.fuelType}
-              img={featuredCar.images}
-              make={featuredCar.brand.name}
-              mileage={featuredCar.mileage}
-              model={featuredCar.model}
-              price={formatPersianPrice(featuredCar.price)}
-              slug={featuredCar.slug}
-              year={featuredCar.year}
-              key={featuredCar.id}
-              brandSlug={featuredCar.brand.slug}
-            />
+            <CarCard car={featuredCar} key={featuredCar.id} />
           ))}
         </div>
       </div>
