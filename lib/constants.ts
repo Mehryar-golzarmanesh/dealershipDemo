@@ -1,15 +1,15 @@
 import { toPersianNumbers } from "./number-formatter";
 
 export const nav_links = [
-  { label: "موجودی خودرو ها", href: "/brands" },
+  { label: "برندها", href: "/brands" },
   { label: "گواهی و کارکردها", href: "/certificates" },
   { label: "تماس با ما", href: "/contact-us" },
 ];
 
 export const footer_link = [
-  { label: "موجودی کامل", href: "/stock" },
+  { label: "موجودی کامل", href: "/brands" },
   { label: "تامین مالی", href: "/finance" },
-  { label: "ارزیابی خودرو", href: "/test" },
+  { label: "ارزیابی خودرو", href: "/test-drive" },
 ];
 
 export const prices = [
